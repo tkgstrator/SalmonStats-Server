@@ -1,9 +1,23 @@
-import { IsNotEmpty, IsNumber, Max, Min } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import {
+  IsNotEmpty,
+  IsNumber,
+  Max,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 
-export class WaveDto {
+export class WaveResult {
+  @Type(() => WaveDTO)
+  @ValidateNested()
+  results: WaveDTO[];
+}
+
+export class WaveDTO {
+  wave_id: number;
+
   @IsNotEmpty()
-  play_time: number;
+  start_time: number;
 
   @IsNotEmpty()
   @Min(0)
@@ -21,22 +35,21 @@ export class WaveDto {
   golden_ikura_pop_num: number;
 
   @IsNotEmpty()
+  @Min(0)
+  @Max(25)
+  quota_num: number;
+
+  @IsNotEmpty()
   @IsNumber()
   @Min(0)
   @Max(6)
-  event_type: EventType;
+  event_type: number;
 
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
   @Max(2)
-  @ApiProperty({ enum: [0, 1, 2] })
-  water_level: WaterLevel;
-
-  @IsNotEmpty()
-  @Min(0)
-  @Max(25)
-  quota_num: number;
+  water_level: number;
 
   @IsNotEmpty()
   is_clear: boolean;

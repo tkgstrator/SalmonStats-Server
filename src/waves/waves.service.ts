@@ -1,16 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { WaveDto } from 'src/waves/dto/waves.dto';
+import { Waves } from 'src/entities/wave.entity';
+import { WaveDTO, WaveResult } from './waves.dto';
+import { Repository, InsertResult } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { validate } from 'class-validator';
 
 @Injectable()
 export class WavesService {
-  public waves: WaveDto[] = [];
+  constructor(
+    @InjectRepository(Waves)
+    private readonly waveRepository: Repository<Waves>,
+  ) {}
 
-  create(wave: WaveDto): WaveDto {
-    this.waves.push(wave);
-    return wave;
+  async findAll(): Promise<Waves[]> {
+    return await this.waveRepository.find();
   }
 
-  findAll() {
-    return this.waves;
+  // async create(wave: WaveDTO): Promise<InsertResult> {
+  //   return this.waveRepository.insert(wave);
+  // }
+
+  async create(waves: WaveResult): Promise<InsertResult> {
+    return this.waveRepository.insert(waves.results);
+  }
+
+  async find(id: number): Promise<Waves> | null {
+    return await this.waveRepository.findOne({ wave_id: id });
   }
 }
