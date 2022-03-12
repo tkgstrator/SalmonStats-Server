@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Waves } from 'src/entities/wave.entity';
 import { WaveDTO, WaveResult } from './waves.dto';
-import { Repository, InsertResult } from 'typeorm';
+import { Repository, InsertResult, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { validate } from 'class-validator';
 
@@ -16,15 +16,24 @@ export class WavesService {
     return await this.waveRepository.find();
   }
 
-  // async create(wave: WaveDTO): Promise<InsertResult> {
-  //   return this.waveRepository.insert(wave);
-  // }
-
-  async create(waves: WaveResult): Promise<InsertResult> {
-    return this.waveRepository.insert(waves.results);
+  async create(waves: Waves[]): Promise<InsertResult> {
+    return await this.waveRepository
+      .createQueryBuilder()
+      .insert()
+      .into(Waves)
+      .values(waves)
+      .orIgnore()
+      .execute();
   }
 
-  async find(id: number): Promise<Waves> | null {
-    return await this.waveRepository.findOne({ wave_id: id });
+  async find(id: number): Promise<Waves[]> {
+    /// 辞書を宣言
+    return this.waveRepository
+      .createQueryBuilder()
+      .select('golden_ikura_num, COUNT(*) as count, event_type, water_level')
+      .where('start_time = :id', { id })
+      .groupBy('golden_ikura_num, event_type, water_level')
+      .orderBy('event_type, water_level, golden_ikura_num')
+      .execute();
   }
 }

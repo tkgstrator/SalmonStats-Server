@@ -1,9 +1,14 @@
 import { Type } from 'class-transformer';
 import {
+  ArrayMinSize,
+  ArrayMaxSize,
+  IsArray,
   IsNotEmpty,
   IsNumber,
   Max,
+  MaxLength,
   Min,
+  MinLength,
   ValidateNested,
 } from 'class-validator';
 
@@ -13,11 +18,25 @@ export class WaveResult {
   results: WaveDTO[];
 }
 
+export class MemberDTO {
+  @MaxLength(16)
+  @MinLength(16)
+  nsa_id: string;
+}
+
 export class WaveDTO {
   wave_id: number;
 
   @IsNotEmpty()
   start_time: number;
+
+  @IsNotEmpty()
+  play_time: number;
+
+  @IsArray()
+  @ArrayMinSize(4)
+  @ArrayMaxSize(4)
+  members: string[];
 
   @IsNotEmpty()
   @Min(0)

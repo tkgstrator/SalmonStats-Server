@@ -11,5 +11,6 @@
     "migrations": [
         "dist/migrations/**/*.js"
     ],
+    "bigNumberStrings": false,
     "logging": false
 }
