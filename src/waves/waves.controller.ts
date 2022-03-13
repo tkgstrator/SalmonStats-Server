@@ -3,6 +3,7 @@ import { WavesService } from './waves.service';
 import { WaveDTO, WaveResult } from 'src/waves/waves.dto';
 import { InsertResult } from 'typeorm';
 import { Waves } from 'src/entities/wave.entity';
+import { ResponseEntity } from 'src/entities/response.entity';
 
 @Controller('waves')
 export class WavesController {
@@ -41,7 +42,7 @@ export class WavesController {
   }
 
   @Get(':id')
-  find(@Param('id') id): Promise<Waves[]> {
+  find(@Param('id') id): Promise<ResponseEntity> {
     return this.service.find(id);
   }
 }
