@@ -1,7 +1,14 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Param,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { WavesService } from './waves.service';
-import { WaveDTO, WaveResult } from 'src/waves/waves.dto';
-import { InsertResult } from 'typeorm';
+import { WaveResultDTO } from 'src/waves/waves.dto';
 import { Waves } from 'src/entities/wave.entity';
 import { ResponseEntity, UploadEntity } from 'src/entities/response.entity';
 
@@ -10,7 +17,7 @@ export class WavesController {
   constructor(private readonly service: WavesService) {}
 
   @Post()
-  create(@Body() wave: WaveResult): Promise<UploadEntity[]> {
+  create(@Body() wave: WaveResultDTO): Promise<UploadEntity[]> {
     const waves = wave.results.map((result) => {
       const wave = new Waves();
       const members = result.members.sort();
@@ -38,7 +45,10 @@ export class WavesController {
 
   @Get()
   findAll(): Promise<Waves[]> {
-    return this.service.findAll();
+    throw new HttpException(
+      'Method Not Allowed',
+      HttpStatus.METHOD_NOT_ALLOWED,
+    );
   }
 
   @Get(':id')

@@ -6,22 +6,16 @@ import {
   IsNotEmpty,
   IsNumber,
   Max,
-  MaxLength,
   Min,
-  MinLength,
   ValidateNested,
 } from 'class-validator';
 
-export class WaveResult {
-  @Type(() => WaveDTO)
+export class WaveResultDTO {
+  @IsNotEmpty()
   @ValidateNested()
+  @Type(() => WaveDTO)
+  // @ArrayMinSize(1)
   results: WaveDTO[];
-}
-
-export class MemberDTO {
-  @MaxLength(16)
-  @MinLength(16)
-  nsa_id: string;
 }
 
 export class WaveDTO {
@@ -72,20 +66,4 @@ export class WaveDTO {
 
   @IsNotEmpty()
   is_clear: boolean;
-}
-
-export enum WaterLevel {
-  Low = 0,
-  Middle = 1,
-  High = 2,
-}
-
-export enum EventType {
-  WaterLevels = 0,
-  Rush = 1,
-  GoldieSeeking = 2,
-  Griller = 3,
-  TheMothership = 4,
-  Fog = 5,
-  CohockCharge = 6,
 }

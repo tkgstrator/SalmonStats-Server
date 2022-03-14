@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { WavesModule } from './waves/waves.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MembersModule } from './members/members.module';
+import { WavesController } from './waves/waves.controller';
 
 @Module({
   controllers: [AppController],
