@@ -1,5 +1,9 @@
 import { Type } from 'class-transformer';
 
+export class UploadResultEntity {
+  results: UploadEntity[];
+}
+
 export class UploadEntity {
   wave_id: number;
   created: boolean;
