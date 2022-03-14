@@ -3,14 +3,14 @@ import { WavesService } from './waves.service';
 import { WaveDTO, WaveResult } from 'src/waves/waves.dto';
 import { InsertResult } from 'typeorm';
 import { Waves } from 'src/entities/wave.entity';
-import { ResponseEntity } from 'src/entities/response.entity';
+import { ResponseEntity, UploadEntity } from 'src/entities/response.entity';
 
 @Controller('waves')
 export class WavesController {
   constructor(private readonly service: WavesService) {}
 
   @Post()
-  create(@Body() wave: WaveResult): Promise<InsertResult> {
+  create(@Body() wave: WaveResult): Promise<UploadEntity[]> {
     const waves = wave.results.map((result) => {
       const wave = new Waves();
       const members = result.members.sort();

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Waves } from 'src/entities/wave.entity';
-import { Repository, InsertResult, UpdateResult } from 'typeorm';
+import { Repository, InsertResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import {
@@ -8,6 +8,7 @@ import {
   SQLEntity,
   DistributionEntity,
   ResultEntity,
+  UploadEntity,
 } from 'src/entities/response.entity';
 
 @Injectable()
@@ -21,14 +22,20 @@ export class WavesService {
     return await this.waveRepository.find();
   }
 
-  async create(waves: Waves[]): Promise<InsertResult> {
-    return await this.waveRepository
+  async create(waves: Waves[]): Promise<UploadEntity[]> {
+    const results: Promise<InsertResult> = this.waveRepository
       .createQueryBuilder()
       .insert()
       .into(Waves)
       .values(waves)
       .orIgnore()
       .execute();
+    return (await results).identifiers.map((id) => {
+      const upload = new UploadEntity();
+      upload.wave_id = Number(id);
+      upload.created = id != null;
+      return upload;
+    });
   }
 
   async find(id: number): Promise<ResponseEntity> {

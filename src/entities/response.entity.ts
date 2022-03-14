@@ -1,5 +1,10 @@
 import { Type } from 'class-transformer';
 
+export class UploadEntity {
+  wave_id: number;
+  created: boolean;
+}
+
 export class ResponseEntity {
   constructor() {
     this.results = [];
