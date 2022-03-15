@@ -45,7 +45,6 @@ export class WavesService {
   }
 
   async find(id: number): Promise<ResponseEntity> {
-    /// 辞書を宣言
     const res = await this.waveRepository
       .createQueryBuilder()
       .select('golden_ikura_num, COUNT(*) as count, event_type, water_level')

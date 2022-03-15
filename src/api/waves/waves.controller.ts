@@ -20,7 +20,7 @@ export class WavesController {
   constructor(private readonly service: WavesService) {}
 
   @Post('/')
-  async create(@Body() wave: WaveResultDTO): Promise<UploadResultEntity> {
+  create(@Body() wave: WaveResultDTO): Promise<UploadResultEntity> {
     const waves = wave.results.map((result) => {
       const wave = new Waves();
       const members = result.members.sort();
@@ -47,12 +47,12 @@ export class WavesController {
   }
 
   @Get('/')
-  async findAll() {
+  findAll() {
     return this.service.findAll();
   }
 
   @Get('/:id')
-  async find(@Param('id') id): Promise<ResponseEntity> {
+  find(@Param('id') id): Promise<ResponseEntity> {
     return this.service.find(id);
   }
 }

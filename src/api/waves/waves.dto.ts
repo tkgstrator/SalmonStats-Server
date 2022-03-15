@@ -27,6 +27,11 @@ export class WaveDTO {
   @IsNotEmpty()
   play_time: number;
 
+  @IsNotEmpty()
+  @Min(0)
+  @Max(2)
+  wave_num: number;
+
   @IsArray()
   @ArrayMinSize(4)
   @ArrayMaxSize(4)

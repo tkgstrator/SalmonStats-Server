@@ -1,7 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 
 @Entity()
-@Unique('unique', ['play_time', 'player_1', 'player_2', 'player_3', 'player_4'])
+@Unique('unique', [
+  'play_time',
+  'wave_num',
+  'player_1',
+  'player_2',
+  'player_3',
+  'player_4',
+])
 export class Waves {
   @PrimaryGeneratedColumn()
   readonly wave_id: number;
@@ -11,6 +18,9 @@ export class Waves {
 
   @Column('int', { width: 11, nullable: false })
   play_time: number;
+
+  @Column('tinyint', { width: 3, nullable: false })
+  wave_num: number;
 
   @Column('smallint', { width: 4, nullable: false })
   ikura_num: number;
