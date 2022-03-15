@@ -19,8 +19,8 @@ import {
 export class WavesController {
   constructor(private readonly service: WavesService) {}
 
-  @Post()
-  create(@Body() wave: WaveResultDTO): Promise<UploadResultEntity> {
+  @Post('/')
+  async create(@Body() wave: WaveResultDTO): Promise<UploadResultEntity> {
     const waves = wave.results.map((result) => {
       const wave = new Waves();
       const members = result.members.sort();
@@ -46,16 +46,16 @@ export class WavesController {
     return this.service.create(waves);
   }
 
-  @Get()
-  findAll(): Promise<Waves[]> {
+  @Get('/')
+  async findAll(): Promise<Waves[]> {
     throw new HttpException(
       'Method Not Allowed',
       HttpStatus.METHOD_NOT_ALLOWED,
     );
   }
 
-  @Get(':id')
-  find(@Param('id') id): Promise<ResponseEntity> {
+  @Get('/:id')
+  async find(@Param('id') id): Promise<ResponseEntity> {
     return this.service.find(id);
   }
 }

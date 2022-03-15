@@ -34,7 +34,7 @@ export class WavesService {
     const response = new UploadResultEntity();
     response.results = results.identifiers.map((id) => {
       const upload = new UploadEntity();
-      upload.wave_id = Number(id);
+      upload.wave_id = id === undefined ? null : Number(id['wave_id']);
       upload.created = id != null;
       return upload;
     });
