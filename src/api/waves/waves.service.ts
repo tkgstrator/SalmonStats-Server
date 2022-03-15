@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Waves } from 'src/entities/wave.entity';
 import { Repository, InsertResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,8 +19,11 @@ export class WavesService {
     private readonly waveRepository: Repository<Waves>,
   ) {}
 
-  async findAll(): Promise<Waves[]> {
-    return await this.waveRepository.find();
+  async findAll() {
+    throw new HttpException(
+      'Method Not Allowed',
+      HttpStatus.METHOD_NOT_ALLOWED,
+    );
   }
 
   async create(waves: Waves[]): Promise<UploadResultEntity> {

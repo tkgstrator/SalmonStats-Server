@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { WavesModule } from './waves/waves.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MembersModule } from './members/members.module';
-import { WavesController } from './waves/waves.controller';
+import { ApiModule } from './api/api.module';
 
 @Module({
   controllers: [AppController],
@@ -20,8 +18,7 @@ import { WavesController } from './waves/waves.controller';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    WavesModule,
-    MembersModule,
+    ApiModule,
   ],
 })
 export class AppModule {}

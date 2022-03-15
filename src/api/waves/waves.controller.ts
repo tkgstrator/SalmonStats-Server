@@ -8,14 +8,14 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { WavesService } from './waves.service';
-import { WaveResultDTO } from 'src/waves/waves.dto';
+import { WaveResultDTO } from 'src/api/waves/waves.dto';
 import { Waves } from 'src/entities/wave.entity';
 import {
   ResponseEntity,
   UploadResultEntity,
 } from 'src/entities/response.entity';
 
-@Controller('waves')
+@Controller('api/waves')
 export class WavesController {
   constructor(private readonly service: WavesService) {}
 
@@ -47,11 +47,8 @@ export class WavesController {
   }
 
   @Get('/')
-  async findAll(): Promise<Waves[]> {
-    throw new HttpException(
-      'Method Not Allowed',
-      HttpStatus.METHOD_NOT_ALLOWED,
-    );
+  async findAll() {
+    return this.service.findAll();
   }
 
   @Get('/:id')
