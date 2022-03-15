@@ -32,6 +32,7 @@ export class WavesController {
       wave.water_level = result.water_level;
       wave.quota_num = result.quota_num;
       wave.start_time = result.start_time;
+      wave.wave_num = result.wave_num;
       wave.player_1 = members[0];
       wave.player_2 = members[1];
       wave.player_3 = members[2];

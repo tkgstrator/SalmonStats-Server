@@ -19,8 +19,6 @@ export class WaveResultDTO {
 }
 
 export class WaveDTO {
-  wave_id: number;
-
   @IsNotEmpty()
   start_time: number;
 
