@@ -14,7 +14,8 @@ export class WaveResultDTO {
   @IsNotEmpty()
   @ValidateNested()
   @Type(() => WaveDTO)
-  // @ArrayMinSize(1)
+  @ArrayMinSize(1)
+  @ArrayMaxSize(150)
   results: WaveDTO[];
 }
 
