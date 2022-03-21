@@ -1,11 +1,11 @@
 version: "3.8"
 services:
-    salmonstats:
+    app:
         build:
             context: ./app
         ports:
             - "5000:5000"
-    nginx:
+    server:
         restart: always
         build:
             context: ./nginx
