@@ -15,6 +15,7 @@ services:
         build:
             context: ./nginx
         ports:
+            - "443:443"
             - "80:80"
         networks:
             - salmon_stats_network

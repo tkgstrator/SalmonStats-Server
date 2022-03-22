@@ -1,5 +1,5 @@
 # pull the Node.js Docker image
-FROM node:alpine
+FROM node:17-alpine3.14
 
 # create the directory inside the container
 WORKDIR /app
